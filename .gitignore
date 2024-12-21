@@ -1,0 +1,75 @@
+# Arquivos gerados pelo Visual Studio
+.vs/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Pastas de saída do build
+bin/
+obj/
+Debug*/
+Release*/
+
+# Arquivos gerados pelo sistema
+*.log
+*.cache
+*.temp
+*.tmp
+*.pdb
+*.ilk
+*.log
+
+# Configurações do Visual Studio
+*.ide.workspace
+*.ide.*
+*.opt
+*.VC.db
+*.VC.VC.opendb
+*.VC.opendb
+ipch/
+
+# Arquivos de pacotes NuGet
+*.nupkg
+*.snupkg
+*.nuspec
+*.sha512
+packages/
+
+# Arquivos temporários de publicação
+.publish/
+
+# Arquivos gerados por ferramentas de gerenciamento
+*.lock.json
+*.lock
+project.lock.json
+
+# Arquivos do Rider (JetBrains)
+.idea/
+*.sln.iml
+
+# Arquivos de cache do Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# Logs do sistema operacional
+*.log
+*.stackdump
+
+# Arquivos de configuração locais (exemplo: secrets.json)
+secrets.json
+*.env
+
+# Arquivos de backup
+*.bak
+*.bak2
+*.old
+*.orig
+
+# Arquivos de configuração do Docker
+docker-compose.override.yml
+
+# Arquivos de cache do sistema operacional
+.DS_Store
+Thumbs.db
