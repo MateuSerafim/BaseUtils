@@ -1,0 +1,30 @@
+name: CI - Build and Test
+on:
+  push:
+    branches:
+      - main
+      - releases/*
+    pull_request:
+      - releases/*
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get repository code
+        uses: actions/checkout@v3
+
+      - name: Configure .net env
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.0.101'
+      
+      - name: Restore dependencies
+        run: dotnet restore
+      
+      - name: Bulding solution
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Run tests
+        run: dotnet test --no-build --verbosity normal /p:CollectCoverage=true
