@@ -18,13 +18,10 @@ jobs:
       - name: Configure .net env
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '9.0.101'
+          dotnet-version: '9.0'
       
       - name: Restore dependencies
-        run: dotnet restore
-      
-      - name: Bulding solution
-        run: dotnet build --no-restore --configuration Release
+        run: dotnet restore BaseUtils.sln
 
       - name: Run tests
-        run: dotnet test --no-build --verbosity normal /p:CollectCoverage=true
+        run: dotnet test --verbosity quiet /p:CollectCoverage=true /p:Threshold=100
