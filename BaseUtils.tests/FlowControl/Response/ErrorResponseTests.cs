@@ -2,7 +2,6 @@ using AutoFixture;
 using BaseUtils.FlowControl.ErrorType;
 
 namespace BaseUtils.tests.FlowControl.Response;
-
 public class ErrorResponseTests
 {
     [Fact(DisplayName = "ERT-01.01: Create Invalid Operation Error. Mensage value")]
@@ -17,7 +16,7 @@ public class ErrorResponseTests
 
         // Then
         Assert.Equal(ErrorTypeEnum.InvalidOperationError, response.ErrorType);
-        Assert.Equal(message, response.ErrorMessage);
+        Assert.Equal(message, response.ErrorMessage());
     }
 
     [Fact(DisplayName = "ERT-01.02: Create Invalid Operation Error. Null value.")]
@@ -28,7 +27,7 @@ public class ErrorResponseTests
 
         // Then
         Assert.Equal(ErrorTypeEnum.InvalidOperationError, response.ErrorType);
-        Assert.Equal(ErrorResponse.InvalidOperationDefaultMessage, response.ErrorMessage);
+        Assert.Equal(ErrorBase.InvalidOperationDefaultMessage, response.ErrorMessage());
     }
 
     [Fact(DisplayName = "ERT-01.03: Create Invalid Operation Error. Empty value.")]
@@ -39,7 +38,7 @@ public class ErrorResponseTests
 
         // Then
         Assert.Equal(ErrorTypeEnum.InvalidOperationError, response.ErrorType);
-        Assert.Equal(ErrorResponse.InvalidOperationDefaultMessage, response.ErrorMessage);
+        Assert.Equal(ErrorBase.InvalidOperationDefaultMessage, response.ErrorMessage());
     }
 
     [Fact(DisplayName = "ERT-02.01: Create Invalid Type Error. Mensage value")]
@@ -54,7 +53,7 @@ public class ErrorResponseTests
 
         // Then
         Assert.Equal(ErrorTypeEnum.InvalidTypeError, response.ErrorType);
-        Assert.Equal(message, response.ErrorMessage);
+        Assert.Equal(message, response.ErrorMessage());
     }
 
     [Fact(DisplayName = "ERT-02.02: Create Invalid Type Error. Null value.")]
@@ -65,7 +64,7 @@ public class ErrorResponseTests
 
         // Then
         Assert.Equal(ErrorTypeEnum.InvalidTypeError, response.ErrorType);
-        Assert.Equal(ErrorResponse.InvalidTypeDefaultMessage, response.ErrorMessage);
+        Assert.Equal(ErrorBase.InvalidTypeDefaultMessage, response.ErrorMessage());
     }
 
     [Fact(DisplayName = "ERT-02.03: Create Invalid Type Error. Empty value.")]
@@ -76,7 +75,7 @@ public class ErrorResponseTests
 
         // Then
         Assert.Equal(ErrorTypeEnum.InvalidTypeError, response.ErrorType);
-        Assert.Equal(ErrorResponse.InvalidTypeDefaultMessage, response.ErrorMessage);
+        Assert.Equal(ErrorBase.InvalidTypeDefaultMessage, response.ErrorMessage());
     }
 
     [Fact(DisplayName = "ERT-03.01: Create Not Found Error. Mensage value")]
@@ -91,7 +90,7 @@ public class ErrorResponseTests
 
         // Then
         Assert.Equal(ErrorTypeEnum.NotFoundError, response.ErrorType);
-        Assert.Equal(message, response.ErrorMessage);
+        Assert.Equal(message, response.ErrorMessage());
     }
 
     [Fact(DisplayName = "ERT-03.02: Create Not Found Error. Null value.")]
@@ -102,7 +101,7 @@ public class ErrorResponseTests
 
         // Then
         Assert.Equal(ErrorTypeEnum.NotFoundError, response.ErrorType);
-        Assert.Equal(ErrorResponse.NotFoundDefaultMessage, response.ErrorMessage);
+        Assert.Equal(ErrorBase.NotFoundDefaultMessage, response.ErrorMessage());
     }
 
     [Fact(DisplayName = "ERT-03.03: Create Not Found Error. Empty value.")]
@@ -113,7 +112,7 @@ public class ErrorResponseTests
 
         // Then
         Assert.Equal(ErrorTypeEnum.NotFoundError, response.ErrorType);
-        Assert.Equal(ErrorResponse.NotFoundDefaultMessage, response.ErrorMessage);
+        Assert.Equal(ErrorBase.NotFoundDefaultMessage, response.ErrorMessage());
     }
 
     [Fact(DisplayName = "ERT-04.01: Create No Access Error. Mensage value")]
@@ -128,7 +127,7 @@ public class ErrorResponseTests
 
         // Then
         Assert.Equal(ErrorTypeEnum.NoAccessError, response.ErrorType);
-        Assert.Equal(message, response.ErrorMessage);
+        Assert.Equal(message, response.ErrorMessage());
     }
 
     [Fact(DisplayName = "ERT-04.02: Create No Access Error. Null value.")]
@@ -139,7 +138,7 @@ public class ErrorResponseTests
 
         // Then
         Assert.Equal(ErrorTypeEnum.NoAccessError, response.ErrorType);
-        Assert.Equal(ErrorResponse.NoAccessDefaultMessage, response.ErrorMessage);
+        Assert.Equal(ErrorBase.NoAccessDefaultMessage, response.ErrorMessage());
     }
 
     [Fact(DisplayName = "ERT-04.03: Create No Access Error. Empty value.")]
@@ -150,7 +149,7 @@ public class ErrorResponseTests
 
         // Then
         Assert.Equal(ErrorTypeEnum.NoAccessError, response.ErrorType);
-        Assert.Equal(ErrorResponse.NoAccessDefaultMessage, response.ErrorMessage);
+        Assert.Equal(ErrorBase.NoAccessDefaultMessage, response.ErrorMessage());
     }
 
     [Fact(DisplayName = "ERT-05.01: Create Critical Error. Mensage value")]
@@ -165,7 +164,7 @@ public class ErrorResponseTests
 
         // Then
         Assert.Equal(ErrorTypeEnum.CriticalError, response.ErrorType);
-        Assert.Equal(message, response.ErrorMessage);
+        Assert.Equal(message, response.ErrorMessage());
     }
 
     [Fact(DisplayName = "ERT-05.02: Create Critical Error. Null value.")]
@@ -176,7 +175,7 @@ public class ErrorResponseTests
 
         // Then
         Assert.Equal(ErrorTypeEnum.CriticalError, response.ErrorType);
-        Assert.Equal(ErrorResponse.CriticalDefaultMessage, response.ErrorMessage);
+        Assert.Equal(ErrorBase.CriticalDefaultMessage, response.ErrorMessage());
     }
 
     [Fact(DisplayName = "ERT-05.03: Create Critical Error. Empty value.")]
@@ -187,6 +186,6 @@ public class ErrorResponseTests
 
         // Then
         Assert.Equal(ErrorTypeEnum.CriticalError, response.ErrorType);
-        Assert.Equal(ErrorResponse.CriticalDefaultMessage, response.ErrorMessage);
+        Assert.Equal(ErrorBase.CriticalDefaultMessage, response.ErrorMessage());
     }
 }
