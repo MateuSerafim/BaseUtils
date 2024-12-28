@@ -4,7 +4,7 @@ namespace BaseUtils.FlowControl.ErrorType;
 
 public record ErrorResponse<T> : ErrorBase
 {
-    public T ErrorValue { get; }
+    public T? ErrorValue { get; }
 
     public const string ReferenceToVariable = "{var}";
 
@@ -45,4 +45,5 @@ public record ErrorResponse<T> : ErrorBase
     => ErrorValue is null ? base.ErrorMessage() : 
                             base.ErrorMessage().Replace(ReferenceToVariable, 
                                                         ErrorValue.ToString());
+
 }
