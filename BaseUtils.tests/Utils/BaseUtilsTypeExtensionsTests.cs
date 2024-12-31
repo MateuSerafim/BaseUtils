@@ -1,4 +1,5 @@
 using AutoFixture;
+using BaseUtils.FlowControl.ErrorType;
 using BaseUtils.Utils;
 
 namespace BaseUtils.tests.Utils;
@@ -207,5 +208,83 @@ public class BaseUtilsTypeExtensionsTests
 
         // Then
         Assert.Equal<string>(result, ["1", "", "3"]);
+    }
+
+    [Fact(DisplayName = "BUET-03.01: is Response type. response type.")]
+    public void IsErrorResponseTypeTest1()
+    {
+        // Given
+        var error = ErrorResponse.InvalidOperationError();
+
+        // When
+        var result = error.IsErrorResponseType();
+
+        // Then
+        Assert.True(result);
+    }
+
+    [Fact(DisplayName = "BUET-03.02: is Response type. int type.")]
+    public void IsErrorResponseTypeTest2()
+    {
+        // Given
+        var error = 2;
+
+        // When
+        var result = error.IsErrorResponseType();
+
+        // Then
+        Assert.False(result);
+    }
+
+    [Fact(DisplayName = "BUET-03.03: is Response type. list error response type.")]
+    public void IsErrorResponseTypeTest3()
+    {
+        // Given
+        List<ErrorResponse> error = [ErrorResponse.InvalidOperationError()];
+
+        // When
+        var result = error.IsErrorResponseType();
+
+        // Then
+        Assert.True(result);
+    }
+
+    [Fact(DisplayName = "BUET-03.04: is Response type. list error response empty type.")]
+    public void IsErrorResponseTypeTest4()
+    {
+        // Given
+        List<ErrorResponse> error = [];
+
+        // When
+        var result = error.IsErrorResponseType();
+
+        // Then
+        Assert.True(result);
+    }
+
+    [Fact(DisplayName = "BUET-03.05: is Response type. list int type.")]
+    public void IsErrorResponseTypeTest5()
+    {
+        // Given
+        List<int> error = [2];
+
+        // When
+        var result = error.IsErrorResponseType();
+
+        // Then
+        Assert.False(result);
+    }
+
+    [Fact(DisplayName = "BUET-03.06: is Response type. empty list int type.")]
+    public void IsErrorResponseTypeTest6()
+    {
+        // Given
+        List<int> error = [];
+
+        // When
+        var result = error.IsErrorResponseType();
+
+        // Then
+        Assert.False(result);
     }
 }

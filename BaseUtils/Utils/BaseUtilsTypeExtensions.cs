@@ -1,4 +1,5 @@
 using System.Collections;
+using BaseUtils.FlowControl.ErrorType;
 
 namespace BaseUtils.Utils;
 
@@ -29,5 +30,14 @@ public static class BaseUtilsTypeExtensions
         }
         var valueText = value?.ToString() ?? string.Empty;
         return string.IsNullOrEmpty(valueText) ? [] : [valueText];
+    }
+
+    public static bool IsErrorResponseType<T>(this T value)
+    {
+        if (typeof(T).IsGenericType)
+            return typeof(T).GetGenericArguments()[0] == typeof(ErrorResponse);           
+        if (typeof(T) == typeof(ErrorResponse))
+            return true;
+        return false;
     }
 }
