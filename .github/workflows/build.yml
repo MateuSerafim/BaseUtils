@@ -1,27 +1,58 @@
-name: CI - Build and Test
+name: Github Actions - Build and Test
 on:
   push:
     branches:
       - main
       - releases/*
-    pull_request:
+    tags:
+      - v*
+
+  pull_request:
+    branches:
       - releases/*
 
 jobs:
-  build_and_test:
+  job_test:
+    name: "Run unit tests of project"
     runs-on: ubuntu-latest
 
     steps:
       - name: Get repository code
         uses: actions/checkout@v3
 
-      - name: Configure .net env
+      - name: Configure .NET env
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.0'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Run tests
+        run: dotnet test --verbosity quiet /p:CollectCoverage=true /p:Threshold=100
+
+  job_publish:
+    name: "Publish package in azure packages"
+    needs: job_test
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+
+    steps:
+      - name: Get repository code
+        uses: actions/checkout@v3
+
+      - name: Configure .NET env
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '9.0'
       
       - name: Restore dependencies
-        run: dotnet restore BaseUtils.sln
+        run: dotnet restore
 
-      - name: Run tests
-        run: dotnet test --verbosity quiet /p:CollectCoverage=true /p:Threshold=100
+      - name: Build and pack
+        run: dotnet pack ./BaseUtils/BaseUtils.csproj --configuration Release --output ./nupkgs
+
+      - name: Publish to GitHub packages
+        run: dotnet nuget push ./nupkgs/BaseUtils.nupkg --source "github"
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_GIT_ACCESS_TOKEN }}
