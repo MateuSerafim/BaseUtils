@@ -56,6 +56,6 @@ jobs:
         run: dotnet pack ./BaseUtils/BaseUtils.csproj --configuration Release --output ./nupkgs
 
       - name: Publish to GitHub packages
-        run: dotnet nuget push ./nupkgs/BaseUtils.nupkg --source "github"
+        run: dotnet nuget push ./nupkgs/BaseUtils.nupkg --source "GitHub"
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.NUGET_GIT_ACCESS_TOKEN }}
