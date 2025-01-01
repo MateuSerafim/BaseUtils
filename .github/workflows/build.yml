@@ -32,7 +32,7 @@ jobs:
         run: dotnet test --verbosity quiet /p:CollectCoverage=true /p:Threshold=100
 
   job_publish:
-    name: "Publish package in azure packages"
+    name: "Publish package in Github packages"
     needs: job_test
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/v')
@@ -49,13 +49,16 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
 
-      - name: Build the project
-        run: dotnet build ./BaseUtils/BaseUtils.csproj --configuration Release
-
+      - name: Get version from Git
+        run: |
+          VERSION=$(git describe --tags --always | cut -c 2-)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+               
       - name: Build and pack
-        run: dotnet pack ./BaseUtils/BaseUtils.csproj --configuration Release --output ./nupkgs
+        run: dotnet build ./BaseUtils/BaseUtils.csproj --configuration Release --output ./nupkgs
 
       - name: Publish to GitHub packages
-        run: dotnet nuget push ./nupkgs/BaseUtils.nupkg --source "GitHub"
-        env:
-          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_GIT_ACCESS_TOKEN }}
+        run: |
+          dotnet nuget push ./nupkgs/*.nupkg \
+            --source https://nuget.pkg.github.com/MateuSerafim/index.json \
+            --api-key ${{ secrets.NUGET_GIT_ACCESS_TOKEN }}
