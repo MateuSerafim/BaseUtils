@@ -41,4 +41,10 @@ public record Result<T> : ResultBase
             throw new InvalidResultException(ExceptionGetValueInFailureText, new ArgumentNullException());
         return Value;
     }
+
+    public static implicit operator Result<T>(T value) => Result<T>.Success(value);
+
+    public static implicit operator Result<T>(ErrorResponse error) => Result<T>.Failure([error]);
+
+    public static implicit operator Result<T>(List<ErrorResponse> errors) => Result<T>.Failure(errors);
 }

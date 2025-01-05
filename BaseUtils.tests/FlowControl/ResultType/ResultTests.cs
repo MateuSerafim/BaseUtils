@@ -1,4 +1,3 @@
-using AutoFixture;
 using BaseUtils.Exceptions;
 using BaseUtils.FlowControl.ErrorType;
 using BaseUtils.FlowControl.ResultType;
@@ -84,5 +83,35 @@ public class ResultTests
         // Then
         Assert.Equal(ResultBase.ExceptionErrorListNullText, ex.Message);
         Assert.IsType<ArgumentNullException>(ex.InnerException);
+    }
+
+    [Fact(DisplayName = "RT-02.01: Convert error type to failure result")]
+    public void ConvertToResult1()
+    {
+        // Given
+        ErrorResponse error = ErrorResponse.InvalidOperationError();
+
+        // When
+        Result result = error;
+
+        // Then
+        Assert.True(result.IsFailure);
+        Assert.Single(result.Errors);
+    }
+
+    [Fact(DisplayName = "RT-02.02: Convert list error type to failure result")]
+    public void ConvertToResult2()
+    {
+        // Given
+        List<ErrorResponse> errorsList = 
+        [ErrorResponse.InvalidOperationError(), 
+         ErrorResponse.InvalidOperationError()];
+
+        // When
+        Result result = errorsList;
+
+        // Then
+        Assert.True(result.IsFailure);
+        Assert.Equal(errorsList.Count, result.Errors.Count);
     }
 }

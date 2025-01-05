@@ -160,4 +160,50 @@ public class ResultTTests
         Assert.Equal(ResultBase.ExceptionErrorListNullText, ex.Message);
         Assert.IsType<ArgumentNullException>(ex.InnerException);
     }
+
+    [Fact(DisplayName = "RT<T>-03.01: Convert value to result sucessful.")]
+    public void ConvertToResult1()
+    {
+        // Given
+        Fixture fixture = new();
+        int value = fixture.Create<int>();
+
+        // When
+        Result<int> result = value;
+
+        // Then
+        Assert.True(result.IsSuccess);
+        Assert.Equal(value, result.GetValue());
+        Assert.Empty(result.Errors);
+    }
+
+    [Fact(DisplayName = "RT<T>-03.02: Convert error to result failure.")]
+    public void ConvertToResult2()
+    {
+        // Given
+        ErrorResponse error = ErrorResponse.InvalidTypeError();
+
+        // When
+        Result<int> result = error;
+
+        // Then
+        Assert.True(result.IsFailure);
+        Assert.Single(result.Errors);
+    }
+
+    [Fact(DisplayName = "RT<T>-03.03: Convert error to result failure.")]
+    public void ConvertToResult3()
+    {
+        // Given
+        List<ErrorResponse> errors = 
+        [ErrorResponse.InvalidTypeError(), 
+         ErrorResponse.NoAccessError()];
+
+        // When
+        Result<int> result = errors;
+
+        // Then
+        Assert.True(result.IsFailure);
+        Assert.Equal(errors.Count, result.Errors.Count);
+    }
 }

@@ -14,5 +14,9 @@ public record class Result : ResultBase
         if (errors == null || errors.Count == 0) 
             throw new InvalidResultException(ExceptionErrorListNullText, new ArgumentNullException());
         return new(false, errors);
-    } 
+    }
+
+    public static implicit operator Result(ErrorResponse error) => Failure([error]);
+    
+    public static implicit operator Result(List<ErrorResponse> errors) => Failure(errors);
 }
