@@ -16,6 +16,35 @@ Dentre os benefícios deste permitindo uma cobertura melhor de comportamentos, d
 * Maior clareza controle sobre os possíveis comportamentos e fluxos de trabalho da aplicação;
 * Customização de erros;
 
+### Instalação
+1°) Adicione o canal _https://nuget.pkg.github.com/MateuSerafim/index.json_ as configurações de canais NuGet e 
+configure as opções de login utilizando seu Github, conforme o exemplo abaixo:
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <packageSources>
+    <add key="nuget" value="https://api.nuget.org/v3/index.json" />
+    <add key="github" value="https://nuget.pkg.github.com/MateuSerafim/index.json" />
+  </packageSources>
+  <packageSourceCredentials>
+    <github>
+      <add key="Username" value="%GH_USERNAME%" />
+      <add key="ClearTextPassword" value="%GH_TOKEN%" />
+    </github>
+  </packageSourceCredentials>
+</configuration>
+```
+onde _**GH_Username**_ é a variável de ambiente contendo seu _username_ e _**GH_TOKEN**_ é o seu token de acesso a github.
+
+
+> ⚠️ **Atenção:** Nunca insira suas credenciais diretamente em projetos ou deixe-a exposta em código aberto. O login é exigência do github para baixar os pacotes.
+
+
+2°) No seu terminal, execute o seguinte comando: 
+```sh
+dotnet add package Rodovia.BaseUtils --version 9.0.2
+```
+
 ### Recursos
 A biblioteca traz duas classes principais: _Result_ e _Error_.
 
@@ -23,7 +52,9 @@ o tipo result representa o resultado de uma operação. Existem dois cenários p
 Um objeto do tipo _Result_ em seu estado de sucesso pode ou não possuir um valor T, a depender da implementação utilizada.
 
 
-O padrão de falha, por sua vez, pode conter um ou mais erros das operações realizadas. 
+O padrão de falha, por sua vez, pode conter um ou mais erros das operações realizadas.
+
+🚀 **Dica:** para lista completa de mudanças e adições por versão, consultar documento: .
 
 #### _ErrorResponse Type_
 Um objeto da classe _Error_ possui um Enum indicando o tipo de erro. São 5 padrões, na versão 9.X:
@@ -48,7 +79,7 @@ como um padrão de resposta "booleano" onde o próprio resultado é o valor.
 
 ### Exemplos de uso
 Considere a classe [_NeuralNetwork_](https://pt.wikipedia.org/wiki/Rede_neural_artificial), representando uma rede neural.
-``` C#
+```csharp
 public Interface INeuron
 {
 }
@@ -72,7 +103,7 @@ public partial class NeuralNetwork
 Muitas vezes, necessita-se de um controle fino na construção da classe. Dentre as diversas estratégias, uma das possibilidade
 é criar um método estático que faz as verificações, retornando um resultado positivo ou negativo, conforme as verificações:
 
-```C#
+```csharp
 
 public partial class NeuralNetwork
 {
