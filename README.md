@@ -5,6 +5,45 @@
 <a name="english-section-id"></a>
 ## BaseUtils - Description
 
+**BaseUtils** is a C# library containing classes for flow control, such as the Result and Error types.
+This library, inspired by functional programming principles and the Result type behavior found in languages like Rust, aims to ensure an information and operation flow with minimal exceptions.
+Among its benefits, which enable better coverage of possible behaviors, the following stand out:
+
+* Standardized method responses;
+* Greater clarity and control over the possible behaviors and workflows of the application;
+* Error customization;
+
+[For historic of updates: ](docs/versions.md)
+
+### Resources
+
+The library provides two main classes: Result and Error.
+
+The Result type represents the outcome of an operation. There are two possible scenarios: success or failure.
+A Result object in a success state may or may not contain a value of type T, depending on the implementation used.
+
+The failure state, on the other hand, can contain one or more errors related to the executed operations.
+
+#### _ErrorResponse Type_
+
+An Error object contains an enum indicating the type of error. There are five predefined categories in version 9.X:
+
+* InvalidOperationError: For issues with a generic operation;
+* InvalidTypeError: For incorrect type usage within the given context;
+* NotFoundError: For missing objects in queries or searches;
+* NoAccessError: For access-related issues when attempting to reach a resource;
+* CriticalError: For critical errors (typically in case of thrown exceptions).
+
+The error types were designed to carry meaningful information about the issues that prevented the continuation of operations.
+In addition to the error type, you can provide a custom error message and an optional value for message parameterization.
+
+#### _Result Type_
+
+The Result type stores the outcome of a behavior to be validated.
+It has two possible states—Success or Failure—and two mutually exclusive properties: Value¹ and a list of errors.
+
+¹ One of the Result implementations does not require a return value, allowing it to be used as a "boolean-like" response pattern, where the result itself represents success or failure.
+
 <a name="portuguese-section-id"></a>
 ## BaseUtils - Descrição
 
@@ -15,6 +54,8 @@ Dentre os benefícios deste permitindo uma cobertura melhor de comportamentos, d
 * Padronização de respostas entre métodos;
 * Maior clareza controle sobre os possíveis comportamentos e fluxos de trabalho da aplicação;
 * Customização de erros;
+
+[Para histórico de atualizações: ](docs/versions.md)
 
 ### Recursos
 A biblioteca traz duas classes principais: _Result_ e _Error_.
