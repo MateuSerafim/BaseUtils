@@ -4,12 +4,26 @@
 
 <a name="english-section-id"></a>
 
+### Version 10.0.0
+
+* Função atualizada para versão 10 do .net.
+
+---
+
 ### Version 9.0.3
 
 * Add "Map" extension method;
 * Add "Bind" extension method;
 
+
+
 <a name="portuguese-section-id"></a>
+
+### Version 10.0.0
+
+* Função atualizada para versão 10 do .net.
+
+---
 
 ### Version 9.0.3
 
