@@ -24,6 +24,8 @@ A Result object in a success state may or may not contain a value of type T, dep
 
 The failure state, on the other hand, can contain one or more errors related to the executed operations.
 
+to verify releases and updates in [versions](docs/versions-en-us.md)
+
 #### _ErrorResponse Type_
 
 An Error object contains an enum indicating the type of error. There are five predefined categories in version 9.X:
@@ -55,7 +57,7 @@ Dentre os benefícios deste permitindo uma cobertura melhor de comportamentos, d
 * Maior clareza controle sobre os possíveis comportamentos e fluxos de trabalho da aplicação;
 * Customização de erros;
 
-[Para histórico de atualizações: ](docs/versions.md)
+[Para histórico de atualizações: ](docs/versions-pt-br.md)
 ### Instalação
 
 1°) Adicione o canal _https://nuget.pkg.github.com/MateuSerafim/index.json_ as configurações de canais NuGet e 
