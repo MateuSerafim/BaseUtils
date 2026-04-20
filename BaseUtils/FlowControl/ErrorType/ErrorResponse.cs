@@ -3,6 +3,7 @@ using BaseUtils.Utils;
 namespace BaseUtils.FlowControl.ErrorType;
 public record ErrorResponse
 {
+    public string ErrorCode {get; }
     public string? ErrorValue { get; }
     public ErrorTypeEnum ErrorType { get; }
     private string ErrorText { get; }
@@ -16,12 +17,18 @@ public record ErrorResponse
 
     public const string ReferenceToVariable = "{var}";
 
-    protected ErrorResponse(ErrorTypeEnum errorType, string? errorText, string? errorValue) 
+    public const string GenericErrorCode = "Generic Error Code.";
+
+    protected ErrorResponse(ErrorTypeEnum errorType, 
+                            string? errorText, 
+                            string? errorValue,
+                            string? errorCode) 
     {
         ErrorType = errorType;
         ErrorText = CheckErrorMessage(errorText);
         ErrorValue = errorValue;
         ErrorId = Guid.NewGuid();
+        ErrorCode = errorCode ?? GenericErrorCode;
     }
 
     private string CheckErrorMessage(string? errorMessage)
@@ -39,30 +46,39 @@ public record ErrorResponse
         };
     }
 
-    public static ErrorResponse InvalidOperationError(string? errorMessage = null) 
-    => InvalidOperationError<string>(errorMessage, null);
-    public static ErrorResponse InvalidOperationError<T> (string? errorMessage, T? errorValue) 
-    => new (ErrorTypeEnum.InvalidOperationError, errorMessage, GetValueToString(errorValue));
+    public static ErrorResponse InvalidOperationError(
+        string? errorMessage = null, string? errorCode = null) 
+    => InvalidOperationError<string>(errorMessage, null, errorCode);
+    public static ErrorResponse InvalidOperationError<T> (
+        string? errorMessage, T? errorValue, string? errorCode = null) 
+    => new (ErrorTypeEnum.InvalidOperationError, errorMessage, 
+            GetValueToString(errorValue), errorCode);
 
-    public static ErrorResponse InvalidTypeError(string? errorMessage = null) 
-    => InvalidTypeError<string>(errorMessage, null);
-    public static ErrorResponse InvalidTypeError<T> (string? errorMessage, T? errorValue) 
-    => new (ErrorTypeEnum.InvalidTypeError, errorMessage, GetValueToString(errorValue));
+    public static ErrorResponse InvalidTypeError(
+        string? errorMessage = null, string? errorCode = null) 
+    => InvalidTypeError<string>(errorMessage, null, errorCode);
+    public static ErrorResponse InvalidTypeError<T> (
+        string? errorMessage, T? errorValue, string? errorCode = null) 
+    => new (ErrorTypeEnum.InvalidTypeError, errorMessage, GetValueToString(errorValue), errorCode);
 
-    public static ErrorResponse NotFoundError(string? errorMessage = null) 
-    => NotFoundError<string>(errorMessage, null);
-    public static ErrorResponse NotFoundError<T> (string? errorMessage, T? errorValue) 
-    => new (ErrorTypeEnum.NotFoundError, errorMessage, GetValueToString(errorValue));
+    public static ErrorResponse NotFoundError(
+        string? errorMessage = null, string? errorCode = null) 
+    => NotFoundError<string>(errorMessage, null, errorCode);
+    public static ErrorResponse NotFoundError<T> (
+        string? errorMessage, T? errorValue, string? errorCode = null) 
+    => new (ErrorTypeEnum.NotFoundError, errorMessage, GetValueToString(errorValue), errorCode);
 
-    public static ErrorResponse NoAccessError(string? errorMessage = null) 
+    public static ErrorResponse NoAccessError(string? errorMessage = null, string? errorCode = null) 
     => NoAccessError<string>(errorMessage, null);
-    public static ErrorResponse NoAccessError<T> (string? errorMessage, T? errorValue) 
-    => new (ErrorTypeEnum.NoAccessError, errorMessage, GetValueToString(errorValue));
+    public static ErrorResponse NoAccessError<T> (string? errorMessage, T? errorValue, string? errorCode = null) 
+    => new (ErrorTypeEnum.NoAccessError, errorMessage, GetValueToString(errorValue), errorCode);
 
-    public static ErrorResponse CriticalError(string? errorMessage = null) 
-    => CriticalError<string>(errorMessage, null);
-    public static ErrorResponse CriticalError<T> (string? errorMessage, T? errorValue) 
-    => new (ErrorTypeEnum.CriticalError, errorMessage, GetValueToString(errorValue));
+    public static ErrorResponse CriticalError(
+        string? errorMessage = null, string? errorCode = null) 
+    => CriticalError<string>(errorMessage, null, errorCode);
+    public static ErrorResponse CriticalError<T> (
+        string? errorMessage, T? errorValue, string? errorCode = null) 
+    => new (ErrorTypeEnum.CriticalError, errorMessage, GetValueToString(errorValue), errorCode);
 
     private static string? GetValueToString<T>(T value)
     {
