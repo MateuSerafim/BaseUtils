@@ -2,6 +2,12 @@
 
 ### Version 10.0.0
 
+* Added error code to identify type of problems.
+
+---
+
+### Version 10.0.0
+
 * Launch version to .net 10
 
 ---

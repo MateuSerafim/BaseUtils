@@ -90,7 +90,7 @@ public class ErrorResponseTests
         var value = fixture.Create<string>();
 
         // When
-        ErrorResponse response = ErrorResponse.InvalidOperationError(Message, value);
+        ErrorResponse response = ErrorResponse.InvalidOperationError(Message, errorValue: value);
 
         // Then
         Assert.Equal(ErrorTypeEnum.InvalidOperationError, response.ErrorType);
@@ -249,7 +249,7 @@ public class ErrorResponseTests
         var value = fixture.Create<string>();
 
         // When
-        ErrorResponse response = ErrorResponse.InvalidTypeError(Message, value);
+        ErrorResponse response = ErrorResponse.InvalidTypeError(Message, errorValue: value);
 
         // Then
         Assert.Equal(ErrorTypeEnum.InvalidTypeError, response.ErrorType);
@@ -408,7 +408,7 @@ public class ErrorResponseTests
         var value = fixture.Create<string>();
 
         // When
-        ErrorResponse response = ErrorResponse.NotFoundError(Message, value);
+        ErrorResponse response = ErrorResponse.NotFoundError(Message, errorValue: value);
 
         // Then
         Assert.Equal(ErrorTypeEnum.NotFoundError, response.ErrorType);
@@ -567,7 +567,7 @@ public class ErrorResponseTests
         var value = fixture.Create<string>();
 
         // When
-        ErrorResponse response = ErrorResponse.NoAccessError(Message, value);
+        ErrorResponse response = ErrorResponse.NoAccessError(Message, errorValue: value);
 
         // Then
         Assert.Equal(ErrorTypeEnum.NoAccessError, response.ErrorType);
@@ -726,7 +726,7 @@ public class ErrorResponseTests
         var value = fixture.Create<string>();
 
         // When
-        ErrorResponse response = ErrorResponse.CriticalError(Message, value);
+        ErrorResponse response = ErrorResponse.CriticalError(Message, errorValue: value);
 
         // Then
         Assert.Equal(ErrorTypeEnum.CriticalError, response.ErrorType);
