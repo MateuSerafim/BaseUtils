@@ -26,18 +26,6 @@ The failure state, on the other hand, can contain one or more errors related to 
 
 to verify releases and updates in [versions](docs/versions-en-us.md)
 
-#### _ErrorResponse Type_
-
-An Error object contains an enum indicating the type of error. There are five predefined categories in version 9.X:
-
-* InvalidOperationError: For issues with a generic operation;
-* InvalidTypeError: For incorrect type usage within the given context;
-* NotFoundError: For missing objects in queries or searches;
-* NoAccessError: For access-related issues when attempting to reach a resource;
-* CriticalError: For critical errors (typically in case of thrown exceptions).
-
-The error types were designed to carry meaningful information about the issues that prevented the continuation of operations.
-In addition to the error type, you can provide a custom error message and an optional value for message parameterization.
 
 #### _Result Type_
 
@@ -98,19 +86,6 @@ Um objeto do tipo _Result_ em seu estado de sucesso pode ou não possuir um valo
 O padrão de falha, por sua vez, pode conter um ou mais erros das operações realizadas.
 
 🚀 **Dica:** para lista completa de mudanças e adições por versão, consultar documento: .
-
-#### _ErrorResponse Type_
-Um objeto da classe _Error_ possui um Enum indicando o tipo de erro. São 5 padrões, na versão 9.X:
-
-* InvalidOperationError: para problemas em alguma operação genérica;
-* InvalidTypeError: para chamados de tipos incorretos no contexto;
-* NotFoundError: para ausência de objetos em pesquisas;
-* NoAccessError: para problemas de acesso a recursos;
-* CriticalError: para errors críticos (em ocorrência de exceções),
-
-Os tipos de erros foram pensados para comportar informações para indicar os problemas que 
-inviabilizaram a continuidade das operações. Além do tipo, é possível passar uma mensagem
-customizada para explicação do erro, e um valor para preenchimento na mensagem.
 
 #### _Result Type_
 
