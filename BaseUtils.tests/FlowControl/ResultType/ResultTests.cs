@@ -1,3 +1,4 @@
+using AutoFixture;
 using BaseUtils.Exceptions;
 using BaseUtils.FlowControl.ErrorType;
 using BaseUtils.FlowControl.ResultType;
@@ -20,8 +21,16 @@ public class ResultTests
     [Fact(DisplayName = "RT-01.02.01: Create simple result as failure.")]
     public void CreateResult2()
     {
+        // Given
+        Fixture fixture = new();
+
+        string code = fixture.Create<string>();
+        string message = fixture.Create<string>();
+        
+        ErrorResponse error = ErrorResponse.Create(code, message);
+
         // When
-        var result = Result.Failure([ErrorResponse.NoAccessError()]);
+        var result = Result.Failure([error]);
 
         // Then
         Assert.False(result.IsSuccess);
@@ -33,9 +42,14 @@ public class ResultTests
     public void CreateResult3()
     {
         // Given
-        var error1 = ErrorResponse.NoAccessError();
-        var error2 = ErrorResponse.CriticalError();
-        var error3 = ErrorResponse.NoAccessError();
+        Fixture fixture = new();
+
+        var error1 = ErrorResponse.Create(fixture.Create<string>(), 
+                                          fixture.Create<string>());
+        var error2 = ErrorResponse.Create(fixture.Create<string>(), 
+                                          fixture.Create<string>());
+        var error3 = ErrorResponse.Create(fixture.Create<string>(), 
+                                          fixture.Create<string>());
 
         // When
         var result = Result.Failure([error1, error2, error3]);
@@ -50,8 +64,12 @@ public class ResultTests
     public void CreateResult4()
     {
         // Given
-        var error1 = ErrorResponse.NoAccessError();
-        var error2 = ErrorResponse.CriticalError();
+        Fixture fixture = new();
+
+        var error1 = ErrorResponse.Create(fixture.Create<string>(), 
+                                          fixture.Create<string>());
+        var error2 = ErrorResponse.Create(fixture.Create<string>(), 
+                                          fixture.Create<string>());
 
         // When
         var result = Result.Failure([error1, error2, error1]);
@@ -69,8 +87,8 @@ public class ResultTests
         var ex = Assert.Throws<InvalidResultException>(() => Result.Failure([]));
 
         // Then
-        Assert.Equal(Result.ExceptionErrorListNullText, ex.Message);
-        Assert.IsType<ArgumentNullException>(ex.InnerException);
+        Assert.Equal(ResultBase.ExceptionErrorListNullText, ex.Message);
+        Assert.IsType<InvalidResultException>(ex);
     }
 
     [Fact(DisplayName = "RT-01.02.05: Create simple result as failure with a null list of errors.")]
@@ -78,21 +96,24 @@ public class ResultTests
     {
         // When
         #pragma warning disable CS8625
-        var ex = Assert.Throws<InvalidResultException>(() => Result.Failure(null));
+        var ex = Assert.Throws<ArgumentNullException>(() => Result.Failure(null));
         #pragma warning restore CS8625
         // Then
-        Assert.Equal(ResultBase.ExceptionErrorListNullText, ex.Message);
-        Assert.IsType<ArgumentNullException>(ex.InnerException);
+        Assert.Equal(ResultBase.ExceptionErrorListNullText + " (Parameter 'errors')", ex.Message);
+        Assert.IsType<ArgumentNullException>(ex);
     }
 
     [Fact(DisplayName = "RT-02.01: Convert error type to failure result")]
     public void ConvertToResult1()
     {
         // Given
-        ErrorResponse error = ErrorResponse.InvalidOperationError();
+        Fixture fixture = new();
+
+        var error1 = ErrorResponse.Create(fixture.Create<string>(), 
+                                          fixture.Create<string>());
 
         // When
-        Result result = error;
+        Result result = error1;
 
         // Then
         Assert.True(result.IsFailure);
@@ -103,9 +124,14 @@ public class ResultTests
     public void ConvertToResult2()
     {
         // Given
-        List<ErrorResponse> errorsList = 
-        [ErrorResponse.InvalidOperationError(), 
-         ErrorResponse.InvalidOperationError()];
+
+        Fixture fixture = new();
+
+        var error1 = ErrorResponse.Create(fixture.Create<string>(), 
+                                          fixture.Create<string>());
+        var error2 = ErrorResponse.Create(fixture.Create<string>(), 
+                                          fixture.Create<string>());
+        List<ErrorResponse> errorsList = [error1, error2];
 
         // When
         Result result = errorsList;
