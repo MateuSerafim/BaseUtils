@@ -44,4 +44,18 @@ public class ErrorResponseTests
         Assert.Equal(value.ToString(), response.ErrorValue);
         Assert.IsType<Guid>(response.ErrorId);
     }
+
+    [Fact(DisplayName = "ERT-01.01.03: Create Invalid Operation Error. Mensage value")]
+    public void CreateInvalidOperationError3()
+    {
+        // Given
+
+        // When
+        ErrorResponse response = ErrorResponse.Create(null, null);
+
+        // Then
+        Assert.Equal(ErrorResponse.GenericErrorCode, response.ErrorCode);
+        Assert.Equal(ErrorResponse.DefaultErrorMessage, response.ErrorMessage());
+        Assert.IsType<Guid>(response.ErrorId);
+    }
 }
