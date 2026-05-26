@@ -29,7 +29,7 @@ jobs:
         run: dotnet restore
 
       - name: Run tests
-        run: dotnet test --verbosity quiet /p:CollectCoverage=true /p:Threshold=100
+        run: dotnet test /p:CollectCoverage=true /p:Threshold=100
 
   job_publish:
     name: "Publish package in Github packages"
