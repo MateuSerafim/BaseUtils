@@ -20,7 +20,7 @@ public class ResultExtensionsTests
         public Result DivideNumber(int number)
         {
             if (number == 0)
-                return ErrorResponse.InvalidOperationError();
+                return ErrorResponse.Create("ERR_DIV_0", "Erro ao dividir por 0!");
             Value /= number;
 
             return Result.Success();
@@ -32,12 +32,13 @@ public class ResultExtensionsTests
 
         public Result<MockedDataOperation> CloneWithErrorValue()
         {
-            return ErrorResponse.NotFoundError();
+            return ErrorResponse.Create("ERR_NOT_FOUND", "Dado não encontrado!");
         }
 
         public Result IsBiggerThanZero()
         {
-            return Value > 0 ? Result.Success() : ErrorResponse.InvalidOperationError();
+            return Value > 0 ? Result.Success() : 
+            ErrorResponse.Create("ERR_MAJOR_VALUE", "Invalid data!");
         }
     }
 
