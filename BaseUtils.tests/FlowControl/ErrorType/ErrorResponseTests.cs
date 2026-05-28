@@ -1,5 +1,6 @@
 using AutoFixture;
 using BaseUtils.FlowControl.ErrorType;
+using BaseUtils.Utils;
 
 namespace BaseUtils.tests.FlowControl.ErrorType;
 public class ErrorResponseTests
@@ -56,6 +57,30 @@ public class ErrorResponseTests
         // Then
         Assert.Equal(ErrorResponse.GenericErrorCode, response.ErrorCode);
         Assert.Equal(ErrorResponse.DefaultErrorMessage, response.ErrorMessage());
+        Assert.IsType<Guid>(response.ErrorId);
+    }
+
+    [Fact(DisplayName = "ERT-01.01.04: Create Invalid Operation Error. Mensage value in list")]
+    public void CreateInvalidOperationError4()
+    {
+        // Given
+        Fixture fixture = new();
+        string code = fixture.Create<string>();
+        string message = fixture.Create<string>() + ErrorResponse.ReferenceToVariable;
+        
+        int value_1 = fixture.Create<int>();
+        int value_2 = fixture.Create<int>();
+        
+        List<int> values = [value_1, value_2];
+
+        // When
+        ErrorResponse response = ErrorResponse.Create(code, message, values);
+
+        // Then
+        Assert.Equal(code, response.ErrorCode);
+        Assert.Equal(message.Replace(ErrorResponse.ReferenceToVariable, string.Join(", ", values.GetStringsByGenericCollection())), 
+                     response.ErrorMessage());
+        Assert.Equal(string.Join(", ", values.GetStringsByGenericCollection()), response.ErrorValue);
         Assert.IsType<Guid>(response.ErrorId);
     }
 }
