@@ -42,8 +42,8 @@ public record ErrorResponse
     }
 
     public string ErrorMessage() 
-    => string.IsNullOrEmpty(ErrorValue) ? GetErrorMessageText() 
-                                        : ErrorMessageWithVariable();
+    => ErrorValue is null ? GetErrorMessageText() 
+                          : ErrorMessageWithVariable();
 
     public string GetErrorMessageText() => ErrorText;
 
